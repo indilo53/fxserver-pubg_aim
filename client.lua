@@ -1,5 +1,3 @@
-local INPUT_ATTACK  = 24
-local INPUT_ATTACK2 = 257
 local INPUT_AIM     = 25
 
 local UseFPS = false
