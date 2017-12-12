@@ -1,4 +1,4 @@
-local INPUT_AIM     = 25
+local INPUT_AIM = 25
 
 local UseFPS = false
 
