@@ -1,6 +1,6 @@
-local INPUT_AIM = 25
-
-local UseFPS = false
+local INPUT_AIM      = 25
+local UseFPS         = false
+local WEAPON_UNARMED = GetHashKey('WEAPON_UNARMED')
 
 -- Controls
 Citizen.CreateThread( function()
@@ -9,34 +9,39 @@ Citizen.CreateThread( function()
     
     Citizen.Wait(0)
 
-    local playerId = PlayerId()
+    local playerId  = PlayerId()
+    local playerPed = PlayerPedId()
 
-    if IsControlJustPressed(0, INPUT_AIM) then
-      
-      if UseFPS then
+    if GetSelectedPedWeapon(playerPed) ~= WEAPON_UNARMED then
 
-        SetTimeout(200, function()
-          if not IsPlayerFreeAiming(playerId) then
-            UseFPS = false
-          end
-        end)
+      if IsControlJustPressed(0, INPUT_AIM) then
+        
+        if UseFPS then
 
-      else
+          SetTimeout(200, function()
+            if not IsPlayerFreeAiming(playerId) then
+              UseFPS = false
+            end
+          end)
 
-        SetTimeout(200, function()
-          if not IsPlayerFreeAiming(playerId) then
-            UseFPS = true
-          end
-        end)
+        else
+
+          SetTimeout(200, function()
+            if not IsPlayerFreeAiming(playerId) then
+              UseFPS = true
+            end
+          end)
+
+        end
 
       end
 
-    end
+      if UseFPS then
+        SetFollowPedCamViewMode(4)
+      else
+        SetFollowPedCamViewMode(0)
+      end
 
-    if UseFPS then
-      SetFollowPedCamViewMode(4)
-    else
-      SetFollowPedCamViewMode(0)
     end
 
   end
